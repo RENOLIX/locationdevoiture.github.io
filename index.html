@@ -222,6 +222,23 @@
             }
         }
 
+        /* --- AJUSTEMENTS MOBILE POUR LA BANDE LOGOS --- */
+        @media (max-width: 640px) {
+            .logo-slider-container {
+                padding: 20px 0;
+            }
+            .logo-track {
+                width: calc(140px * 16);
+            }
+            .logo-item {
+                width: 140px;
+                padding: 0 16px;
+            }
+            .logo-item img {
+                max-width: 60px;
+            }
+        }
+
         /* Summary Item Pulse */
         .summary-pulse { animation: pulseGlow 2s infinite; }
         @keyframes pulseGlow {
