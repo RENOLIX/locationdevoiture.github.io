@@ -13,7 +13,23 @@
         
         html, body {
             overflow-x: hidden;
+            overflow-x: clip;
             max-width: 100%;
+            width: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        #page {
+            width: 100%;
+            overflow-x: hidden;
+            overflow-x: clip;
         }
 
         :root {
@@ -21,13 +37,6 @@
             --glass: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.1);
             --bg-dark: #050505;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-dark);
-            color: white;
-            overflow-x: hidden;
         }
 
         h1, h2, h3, .font-display { font-family: 'Outfit', sans-serif; }
@@ -342,6 +351,7 @@
     </style>
 </head>
 <body>
+<div id="page">
 
     <!-- Gouttes décoratives arrière-plan -->
     <div class="glass-drop-bg top-[-5%] left-[-5%]"></div>
@@ -383,7 +393,7 @@
                 </p>
                 <!-- BOUTON GOUTTE DE VERRE -->
                 <div onclick="document.getElementById('fleet').scrollIntoView()" class="glass-droplet uppercase text-xs tracking-widest">
-                    Explorer la flotte
+                    Decouvrir nos véhicules
                 </div>
             </div>
             <div class="relative reveal delay-200">
@@ -937,5 +947,7 @@
         document.getElementById('start-date').value = today;
         document.getElementById('end-date').value = tomorrow;
     </script>
+
+</div>
 </body>
 </html>
