@@ -14,16 +14,59 @@
             --bg-dark: #050505;
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-dark);
             color: white;
             overflow-x: hidden;
+            margin: 0;
         }
 
         h1, h2, h3, .font-display { font-family: 'Outfit', sans-serif; }
 
-        /* --- EFFET GOUTTE DE VERRE (LIQUID GLASS) --- */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .nav-inner {
+            transition: padding 0.3s ease;
+        }
+
+        .btn-reserver {
+            white-space: nowrap;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-grid { gap: 3rem; }
+
+        .hero-title {
+            font-size: clamp(2.6rem, 7vw, 5rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        .hero-visual { max-width: 520px; margin: 0 auto; }
+
+        .hero-card { transform: rotate(3deg); }
+
+        .glass-drop-bg {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            filter: blur(80px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
         .glass-droplet {
             position: relative;
             background: rgba(255, 255, 255, 0.05);
@@ -41,6 +84,8 @@
                 inset 0 -4px 10px rgba(0, 0, 0, 0.3),
                 0 10px 30px rgba(0, 0, 0, 0.5);
             cursor: pointer;
+            max-width: 100%;
+            text-align: center;
         }
         .glass-droplet::before {
             content: '';
@@ -61,7 +106,6 @@
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
         }
 
-        /* --- GLASSMORPHISM CARDS --- */
         .glass-card {
             background: var(--glass);
             backdrop-filter: blur(12px);
@@ -74,14 +118,12 @@
             background: rgba(255, 255, 255, 0.06);
         }
 
-        /* --- FILTRES --- */
         .filter-btn.active {
             background: var(--primary);
             color: black;
             border-color: var(--primary);
         }
 
-        /* --- ANIMATIONS --- */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -94,19 +136,9 @@
         .car-image { transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         .car-card:hover .car-image { transform: scale(1.08); }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
-
-        .glass-drop-bg {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-            filter: blur(80px);
-            z-index: -1;
-        }
 
         .input-glass {
             background: rgba(255, 255, 255, 0.05);
@@ -119,7 +151,6 @@
         }
         .input-glass:focus { border-color: var(--primary); background: rgba(255, 255, 255, 0.08); }
 
-        /* Icon Container Style */
         .icon-box {
             width: 64px;
             height: 64px;
@@ -134,7 +165,6 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        /* --- LOGO SLIDER ANIMATION --- */
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -161,13 +191,14 @@
 
         .logo-track {
             display: flex;
-            width: calc(250px * 16);
+            gap: 40px;
             animation: scroll 30s linear infinite;
+            min-width: 200%;
         }
         .logo-track:hover { animation-play-state: paused; }
         
         .logo-item {
-            width: 250px;
+            flex: 0 0 220px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -184,7 +215,6 @@
             transform: scale(1.1);
         }
 
-        /* Summary Item Pulse */
         .summary-pulse { animation: pulseGlow 2s infinite; }
         @keyframes pulseGlow {
             0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
@@ -192,7 +222,6 @@
             100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
         }
 
-        /* --- NOUVEAU BLOC POURQUOI NOUS --- */
         .lux-frame {
             position: relative;
             border-radius: 36px;
@@ -251,17 +280,105 @@
             background: var(--primary);
             box-shadow: 0 0 10px rgba(212,175,55,0.6);
         }
+
+        .cars-grid { width: 100%; }
+
+        .summary-card {
+            position: sticky;
+            top: 7rem;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-inner {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            #reservation .summary-card {
+                position: static;
+                top: auto;
+            }
+            .logo-track {
+                gap: 28px;
+            }
+            .logo-item {
+                flex-basis: 180px;
+                padding: 0 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-inner {
+                flex-wrap: wrap;
+                gap: 1rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-card {
+                transform: none;
+            }
+            .glass-drop-bg {
+                display: none;
+            }
+            section {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+            .logo-slider-container {
+                padding: 28px 0;
+            }
+            .logo-item img {
+                max-width: 80px;
+            }
+            .cars-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: clamp(2.2rem, 10vw, 3.4rem);
+            }
+            .btn-reserver {
+                width: 100%;
+                text-align: center;
+            }
+            .logo-track {
+                animation-duration: 18s;
+            }
+            .logo-item {
+                flex-basis: 140px;
+                padding: 0 12px;
+            }
+            .glass-droplet {
+                width: 100%;
+            }
+            .filter-btn {
+                flex: 1 1 calc(50% - 12px);
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .filter-btn {
+                flex-basis: 100%;
+            }
+            section {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Gouttes décoratives arrière-plan -->
     <div class="glass-drop-bg top-[-5%] left-[-5%]"></div>
     <div class="glass-drop-bg bottom-[20%] right-[-5%]"></div>
 
-    <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 border-b border-white/5 bg-black/40 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="nav-inner max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <div class="w-10 h-10 bg-[#d4af37] rounded-lg flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.3)]">
                     <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"/></svg>
@@ -276,30 +393,28 @@
                 <a href="#contact" class="hover:text-[#d4af37] transition-colors">CONTACT</a>
             </div>
 
-            <a href="#reservation" class="px-6 py-2.5 bg-[#d4af37] text-black font-bold rounded-full text-[10px] uppercase tracking-widest hover:scale-105 transition-transform">
+            <a href="#reservation" class="btn-reserver px-6 py-2.5 bg-[#d4af37] text-black font-bold rounded-full text-[10px] uppercase tracking-widest hover:scale-105 transition-transform">
                 RÉSERVER
             </a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="relative min-h-screen flex items-center pt-20 px-6">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <div class="max-w-7xl mx-auto grid hero-grid lg:grid-cols-2 gap-12 items-center">
             <div class="reveal">
-                <span class="text-[#d4af37] font-bold tracking-[0.3em] text-[10px] mb-4 block uppercase tracking-[0.4em]">Prestige Automobile Algérie</span>
-                <h1 class="text-6xl md:text-8xl font-bold leading-none mb-6 tracking-tighter font-display uppercase">
+                <span class="hero-eyebrow text-[#d4af37] font-bold text-[10px] mb-4 block uppercase tracking-[0.4em]">Prestige Automobile Algérie</span>
+                <h1 class="hero-title text-6xl md:text-8xl font-bold leading-none mb-6 tracking-tighter font-display uppercase">
                     L'EXCELLENCE <br> <span class="gradient-text">À VOTRE SERVICE</span>
                 </h1>
                 <p class="text-gray-400 text-lg max-w-md mb-10 leading-relaxed">
                     Découvrez une collection exclusive de véhicules de prestige pour vos moments d'exception partout en Algérie.
                 </p>
-                <!-- BOUTON GOUTTE DE VERRE -->
-                <div onclick="document.getElementById('fleet').scrollIntoView()" class="glass-droplet uppercase text-xs tracking-widest">
+                <div onclick="document.getElementById('fleet').scrollIntoView({ behavior: 'smooth' })" class="glass-droplet uppercase text-xs tracking-widest">
                     Explorer la flotte
                 </div>
             </div>
-            <div class="relative reveal delay-200">
-                <div class="glass-card p-4 rounded-[40px] rotate-3 overflow-hidden shadow-2xl">
+            <div class="relative hero-visual reveal delay-200">
+                <div class="glass-card hero-card p-4 rounded-[40px] overflow-hidden shadow-2xl">
                     <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800" alt="Luxury Car" class="rounded-[30px] w-full object-cover">
                 </div>
                 <div class="absolute -bottom-6 -left-6 glass-card p-6 rounded-2xl animate-bounce">
@@ -310,11 +425,9 @@
         </div>
     </section>
 
-    <!-- Pourquoi nous choisir (NOUVELLE VERSION PREMIUM) -->
     <section id="about" class="py-24 px-6 bg-[#080808]/50">
         <div class="max-w-7xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <!-- Colonne éditoriale -->
                 <div class="reveal">
                     <p class="text-[10px] font-black text-gray-500 uppercase tracking-[0.4em] mb-4">Notre signature</p>
                     <h2 class="text-4xl md:text-5xl font-bold mb-6 font-display uppercase tracking-tight italic">
@@ -359,7 +472,6 @@
                     </div>
                 </div>
 
-                <!-- Colonne tableau premium -->
                 <div class="reveal">
                     <div class="lux-frame">
                         <div class="inner">
@@ -386,7 +498,7 @@
                                     <div class="label">Inclus / Jour</div>
                                 </div>
                                 <div class="lux-metric">
-                                    <div class="value">12 min</div>
+                                    <div's class="value">12 min</div>
                                     <div class="label">Réponse Moy.</div>
                                 </div>
                             </div>
@@ -410,7 +522,6 @@
                 </div>
             </div>
 
-            <!-- Badges de confiance -->
             <div class="mt-14 flex flex-wrap justify-center gap-3 reveal">
                 <div class="lux-badge">Validation avant remise</div>
                 <div class="lux-badge">Support multilingue</div>
@@ -420,22 +531,19 @@
         </div>
     </section>
 
-    <!-- Fleet Section -->
     <section id="fleet" class="py-24 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 reveal">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6 font-display uppercase tracking-tight italic">NOTRE <span class="text-[#d4af37]">COLLECTION</span></h2>
                 
-                <!-- FILTRES DE CATÉGORIES -->
                 <div class="flex flex-wrap justify-center gap-4 mb-8">
-                    <button onclick="filterCars('all')" class="filter-btn active px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">TOUS</button>
-                    <button onclick="filterCars('berline')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">BERLINES</button>
-                    <button onclick="filterCars('suv')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">SUV</button>
-                    <button onclick="filterCars('sport')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">SPORTIVES</button>
-                    <button onclick="filterCars('prestige')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">PRESTIGE</button>
+                    <button data-category="all" onclick="filterCars('all')" class="filter-btn active px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">TOUS</button>
+                    <button data-category="berline" onclick="filterCars('berline')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">BERLINES</button>
+                    <button data-category="suv" onclick="filterCars('suv')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">SUV</button>
+                    <button data-category="sport" onclick="filterCars('sport')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">SPORTIVES</button>
+                    <button data-category="prestige" onclick="filterCars('prestige')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">PRESTIGE</button>
                 </div>
 
-                <!-- BARRE DE RECHERCHE -->
                 <div class="max-w-md mx-auto mb-12 relative group">
                     <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 group-focus-within:text-[#d4af37] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -445,12 +553,9 @@
                 </div>
             </div>
 
-            <!-- Grille des voitures -->
-            <div id="cars-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- JS Inject -->
+            <div id="cars-grid" class="cars-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             </div>
 
-            <!-- Message si aucun résultat -->
             <div id="no-results" class="hidden text-center py-20">
                 <p class="text-gray-500 font-display italic text-lg uppercase tracking-widest">Aucun véhicule ne correspond à votre recherche</p>
                 <button onclick="resetFilters()" class="mt-4 text-[#d4af37] text-[10px] font-black uppercase tracking-[0.3em] underline">Réinitialiser</button>
@@ -458,7 +563,6 @@
         </div>
     </section>
 
-    <!-- Réservation Section INTELLIGENTE -->
     <section id="reservation" class="py-24 px-6 bg-[#0a0a0c]">
         <div class="max-w-6xl mx-auto reveal">
             <div class="text-center mb-16">
@@ -467,7 +571,6 @@
             </div>
 
             <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Formulaire Principal -->
                 <div class="lg:col-span-2 glass-card p-8 md:p-10 border-[#d4af37]/20">
                     <form id="reservation-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-8">
                         <input type="hidden" name="access_key" value="VOTRE_CLE_ICI">
@@ -500,17 +603,13 @@
                             <div class="flex gap-4">
                                 <select id="car-selector" class="flex-1 input-glass bg-[#0a0a0c]">
                                     <option value="">Choisir un modèle...</option>
-                                    <!-- Options injectées par JS -->
                                 </select>
                                 <button type="button" onclick="addCarToOrder()" class="px-6 bg-white text-black font-bold rounded-xl hover:bg-[#d4af37] transition-all uppercase text-[10px] tracking-widest">
                                     Ajouter
                                 </button>
                             </div>
                             
-                            <!-- Liste des véhicules sélectionnés -->
-                            <div id="selected-cars-list" class="space-y-3">
-                                <!-- JS Inject Items -->
-                            </div>
+                            <div id="selected-cars-list" class="space-y-3"></div>
                         </div>
 
                         <div class="space-y-2">
@@ -524,15 +623,14 @@
                     </form>
                 </div>
 
-                <!-- Résumé en Temps Réel -->
                 <div class="lg:col-span-1">
-                    <div class="glass-card p-8 sticky top-28 border-white/5 bg-[#0d0d0f]">
+                    <div class="glass-card summary-card p-8 border-white/5 bg-[#0d0d0f]">
                         <h3 class="text-xl font-bold font-display uppercase italic mb-6 border-b border-white/10 pb-4">Résumé <span class="text-[#d4af37]">Direct</span></h3>
                         
                         <div id="real-time-summary" class="space-y-6">
                             <div class="flex justify-between items-center text-gray-500 text-xs">
                                 <span>Durée :</span>
-                                <span id="summary-days" class="font-bold text-white">0 Jour</span>
+                                <span id="summary-days" class="font-bold text-white">1 Jour</span>
                             </div>
                             
                             <div id="summary-items" class="space-y-4">
@@ -556,7 +654,6 @@
         </div>
     </section>
 
-    <!-- Avis Section -->
     <section id="reviews" class="py-24 px-6">
         <div class="max-w-7xl mx-auto text-center mb-16 reveal">
             <h2 class="text-4xl md:text-5xl font-bold font-display uppercase tracking-tight italic">CE QUE DISENT <span class="text-[#d4af37]">NOS CLIENTS</span></h2>
@@ -581,7 +678,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="py-24 px-6 bg-[#080808]/50">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 reveal">
@@ -614,10 +710,8 @@
         </div>
     </section>
 
-    <!-- BANDE DÉFILANTE DE LOGOS PRO -->
     <div class="logo-slider-container">
         <div class="logo-track">
-            <!-- Logos originaux -->
             <div class="logo-item"><img src="https://i.ibb.co/vvwygLSY/Design-sans-titre-23.png" alt="Audi"></div>
             <div class="logo-item"><img src="https://i.ibb.co/99Y1Pb56/Mercedes-Bens.png" alt="Mercedes"></div>
             <div class="logo-item"><img src="https://i.ibb.co/JF3fCDbP/autocollants-logo-bmw.png" alt="BMW" style="max-width: 60px;"></div>
@@ -626,7 +720,6 @@
             <div class="logo-item"><img src="https://i.ibb.co/cXXsGHfw/Mercedes-Bens-3-2.png" alt="Lamborghini" style="max-width: 60px;"></div>
             <div class="logo-item"><img src="https://i.ibb.co/G4z9k0d6/Design-sans-titre-28.png" alt="Skoda" style="max-width: 60px;"></div>
             <div class="logo-item"><img src="https://i.ibb.co/cXbBqQNC/Design-sans-titre-29.png" alt="Seat" style="max-width: 60px;"></div>
-            <!-- Duplicate pour effet continu -->
             <div class="logo-item"><img src="https://i.ibb.co/vvwygLSY/Design-sans-titre-23.png" alt="Audi"></div>
             <div class="logo-item"><img src="https://i.ibb.co/99Y1Pb56/Mercedes-Bens.png" alt="Mercedes"></div>
             <div class="logo-item"><img src="https://i.ibb.co/JF3fCDbP/autocollants-logo-bmw.png" alt="BMW" style="max-width: 60px;"></div>
@@ -638,7 +731,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="py-12 border-t border-white/5 text-center px-6">
         <div class="text-xl font-display font-bold mb-4 italic uppercase tracking-tighter">AutoLux <span class="text-[#d4af37]">Premium</span></div>
         <p class="text-gray-500 text-[10px] mb-6 uppercase tracking-widest font-medium">75 Avenue des Champs-Élysées, Paris | 01 Rue Didouche Mourad, Alger</p>
@@ -686,9 +778,9 @@
                 noResults.classList.add('hidden');
                 filtered.forEach(car => {
                     grid.innerHTML += `
-                        <div class="glass-card p-6 reveal active car-card flex flex-col">
+                        <div class="glass-card p-6 reveal car-card flex flex-col">
                             <div class="overflow-hidden rounded-2xl mb-6 aspect-video">
-                                <img src="${car.img}" class="car-image w-full h-full object-cover">
+                                <img src="${car.img}" class="car-image w-full h-full object-cover" alt="${car.name}">
                             </div>
                             <div class="flex justify-between items-start mb-4">
                                 <div>
@@ -713,20 +805,15 @@
             refreshReveal();
         }
 
-        // Gérer la recherche
         function handleSearch() {
             searchQuery = document.getElementById('car-search').value;
             renderCars();
         }
 
-        // Gérer les filtres de catégorie
         function filterCars(category) {
             currentCategory = category;
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if(btn.innerText.toLowerCase() === category.toLowerCase() || (category === 'all' && btn.innerText === 'TOUS')) {
-                    btn.classList.add('active');
-                }
+                btn.classList.toggle('active', btn.dataset.category === category);
             });
             renderCars();
         }
@@ -737,7 +824,6 @@
             filterCars('all');
         }
 
-        // Remplir le select du formulaire
         function populateSelector() {
             const select = document.getElementById('car-selector');
             cars.forEach(car => {
@@ -802,17 +888,24 @@
 
             document.getElementById('summary-days').textContent = `${daysCount} Jour${daysCount > 1 ? 's' : ''}`;
             document.getElementById('summary-total').textContent = `${total.toLocaleString()} DA`;
-            
-            document.getElementById('hidden-summary').value = `Dates: ${document.getElementById('start-date').value} au ${document.getElementById('end-date').value} | Véhicules: ${selectedCars.map(c => c.name).join(', ')} | Total: ${total} DA`;
+
+            const startDate = document.getElementById('start-date').value || 'Non défini';
+            const endDate = document.getElementById('end-date').value || 'Non défini';
+            const vehicles = selectedCars.length ? selectedCars.map(c => c.name).join(', ') : 'Aucun véhicule sélectionné';
+
+            document.getElementById('hidden-summary').value = `Dates: ${startDate} au ${endDate} | Véhicules: ${vehicles} | Total: ${total} DA`;
         }
 
         function calculateDays() {
-            const start = new Date(document.getElementById('start-date').value);
-            const end = new Date(document.getElementById('end-date').value);
+            const startValue = document.getElementById('start-date').value;
+            const endValue = document.getElementById('end-date').value;
+            const start = new Date(startValue);
+            const end = new Date(endValue);
             
-            if (!isNaN(start) && !isNaN(end) && end > start) {
+            if (!isNaN(start) && !isNaN(end)) {
                 const diff = end - start;
-                return Math.ceil(diff / (1000 * 60 * 60 * 24));
+                const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                return Math.max(days, 1);
             }
             return 1;
         }
@@ -840,14 +933,14 @@
             else nav.classList.remove('py-2');
         });
 
-        // Initialisation
-        renderCars();
         populateSelector();
-        
+        filterCars('all');
+
         const today = new Date().toISOString().split('T')[0];
         const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
         document.getElementById('start-date').value = today;
         document.getElementById('end-date').value = tomorrow;
+        updateOrderUI();
     </script>
 </body>
 </html>
