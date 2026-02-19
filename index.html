@@ -289,6 +289,39 @@
             background: var(--primary);
             box-shadow: 0 0 10px rgba(212,175,55,0.6);
         }
+
+        /* --- CORRECTIONS POUR GRANDS ÉCRANS --- */
+        @media (min-width: 1920px) {
+            h1 {
+                font-size: 5rem !important;
+                line-height: 1.1 !important;
+            }
+            .max-w-7xl {
+                max-width: 1400px !important;
+            }
+            .max-w-6xl {
+                max-width: 1200px !important;
+            }
+            .grid.lg\:grid-cols-3 {
+                grid-template-columns: 1fr 1fr 1fr !important;
+                gap: 1.5rem !important;
+            }
+            .grid.lg\:grid-cols-2 {
+                gap: 3rem !important;
+            }
+        }
+
+        @media (min-width: 2560px) {
+            h1 {
+                font-size: 4rem !important;
+            }
+            .max-w-7xl {
+                max-width: 1600px !important;
+            }
+            .max-w-6xl {
+                max-width: 1400px !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -325,7 +358,7 @@
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
             <div class="reveal">
                 <span class="text-[#d4af37] font-bold tracking-[0.3em] text-[10px] mb-4 block uppercase tracking-[0.4em]">Prestige Automobile Algérie</span>
-                <h1 class="text-6xl md:text-8xl font-bold leading-none mb-6 tracking-tighter font-display uppercase">
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6 tracking-tighter font-display uppercase">
                     L'EXCELLENCE <br> <span class="gradient-text">À VOTRE SERVICE</span>
                 </h1>
                 <p class="text-gray-400 text-lg max-w-md mb-10 leading-relaxed">
