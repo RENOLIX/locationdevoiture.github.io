@@ -530,7 +530,7 @@
     </section>
 
     <!-- Réservation Section INTELLIGENTE -->
-    <section id="reservation" class="py-24 px-6 bg-[#0a0a0c]">
+    <section id="reservation" class="py-24 px-4 sm:px-6 bg-[#0a0a0c]">
         <div class="max-w-6xl mx-auto reveal">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold font-display uppercase tracking-tight italic">VOTRE <span class="text-[#d4af37]">DEVIS SUR MESURE</span></h2>
@@ -539,7 +539,7 @@
 
             <div class="grid lg:grid-cols-3 gap-8">
                 <!-- Formulaire Principal -->
-                <div class="lg:col-span-2 glass-card p-8 md:p-10 border-[#d4af37]/20">
+                <div class="lg:col-span-2 glass-card p-6 md:p-8 lg:p-10 border-[#d4af37]/20 max-w-full overflow-x-hidden">
                     <form id="reservation-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-8">
                         <input type="hidden" name="access_key" value="VOTRE_CLE_ICI">
                         <input type="hidden" id="hidden-summary" name="order_summary">
@@ -568,12 +568,12 @@
 
                         <div class="space-y-4 border-t border-white/5 pt-8">
                             <label class="text-[10px] font-bold text-[#d4af37] uppercase ml-2 tracking-widest">Ajouter des véhicules à votre commande</label>
-                            <div class="flex gap-4">
-                                <select id="car-selector" class="flex-1 input-glass bg-[#0a0a0c]">
+                            <div class="flex gap-4 flex-col sm:flex-row">
+                                <select id="car-selector" class="flex-1 input-glass bg-[#0a0a0c] w-full">
                                     <option value="">Choisir un modèle...</option>
                                     <!-- Options injectées par JS -->
                                 </select>
-                                <button type="button" onclick="addCarToOrder()" class="px-6 bg-white text-black font-bold rounded-xl hover:bg-[#d4af37] transition-all uppercase text-[10px] tracking-widest">
+                                <button type="button" onclick="addCarToOrder()" class="px-6 bg-white text-black font-bold rounded-xl hover:bg-[#d4af37] transition-all uppercase text-[10px] tracking-widest w-full sm:w-auto">
                                     Ajouter
                                 </button>
                             </div>
@@ -596,8 +596,8 @@
                 </div>
 
                 <!-- Résumé en Temps Réel -->
-                <div class="lg:col-span-1">
-                    <div class="glass-card p-8 sticky top-28 border-white/5 bg-[#0d0d0f]">
+                <div class="lg:col-span-1 w-full max-w-full">
+                    <div class="glass-card p-4 md:p-6 lg:p-8 sticky top-4 md:top-10 lg:top-28 border-white/5 bg-[#0d0d0f] max-w-full overflow-x-hidden">
                         <h3 class="text-xl font-bold font-display uppercase italic mb-6 border-b border-white/10 pb-4">Résumé <span class="text-[#d4af37]">Direct</span></h3>
                         
                         <div id="real-time-summary" class="space-y-6">
