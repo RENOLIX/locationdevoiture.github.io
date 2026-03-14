@@ -29,7 +29,6 @@
         #page {
             width: 100%;
             overflow-x: hidden;
-            overflow-x: clip;
         }
 
         :root {
@@ -40,6 +39,31 @@
         }
 
         h1, h2, h3, .font-display { font-family: 'Outfit', sans-serif; }
+
+        /* --- LOGO IMAGE (NAV + FOOTER) --- */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+        .brand-logo-img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px;
+            box-shadow: 0 0 20px rgba(212,175,55,0.15);
+            flex-shrink: 0;
+        }
+        .footer-logo-img {
+            height: 56px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 18px rgba(212,175,55,0.2));
+        }
 
         /* --- EFFET GOUTTE DE VERRE (LIQUID GLASS) --- */
         .glass-droplet {
@@ -118,6 +142,81 @@
         }
         .car-card:hover .car-image { transform: scale(1.08); }
 
+        /* --- SLIDER PHOTOS CARTES --- */
+        .car-slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            touch-action: pan-y;
+            cursor: grab;
+        }
+        .car-slider::-webkit-scrollbar {
+            display: none;
+        }
+        .car-slider.dragging {
+            cursor: grabbing;
+            scroll-behavior: auto;
+        }
+        .car-slide {
+            min-width: 100%;
+            height: 100%;
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(6px);
+            color: white;
+            font-weight: 900;
+            line-height: 1;
+            display: grid;
+            place-items: center;
+            z-index: 2;
+            transition: 0.25s ease;
+        }
+        .slider-btn:hover {
+            background: var(--primary);
+            color: black;
+            border-color: var(--primary);
+        }
+        .slider-dots {
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 2;
+        }
+        .slider-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.25);
+            transition: 0.2s ease;
+        }
+        .slider-dot.active {
+            width: 18px;
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
@@ -186,7 +285,7 @@
 
         .logo-track {
             display: flex;
-            width: calc(250px * 16);
+            width: max-content;
             animation: scroll 30s linear infinite;
         }
         .logo-track:hover { animation-play-state: paused; }
@@ -212,6 +311,23 @@
 
         /* Media query pour grands écrans PC */
         @media (min-width: 1920px) {
+            h1 {
+                font-size: 5rem !important;
+                line-height: 1.1 !important;
+            }
+            .max-w-7xl {
+                max-width: 1400px !important;
+            }
+            .max-w-6xl {
+                max-width: 1200px !important;
+            }
+            .grid.lg\:grid-cols-3 {
+                grid-template-columns: 1fr 1fr 1fr !important;
+                gap: 1.5rem !important;
+            }
+            .grid.lg\:grid-cols-2 {
+                gap: 3rem !important;
+            }
             .logo-item {
                 width: 200px;
                 padding: 0 30px;
@@ -222,6 +338,15 @@
         }
 
         @media (min-width: 2560px) {
+            h1 {
+                font-size: 4rem !important;
+            }
+            .max-w-7xl {
+                max-width: 1600px !important;
+            }
+            .max-w-6xl {
+                max-width: 1400px !important;
+            }
             .logo-item {
                 width: 150px;
                 padding: 0 20px;
@@ -245,6 +370,17 @@
             }
             .logo-item img {
                 max-width: 60px;
+            }
+            .brand-logo-img {
+                width: 42px;
+                height: 42px;
+            }
+            .footer-logo-img {
+                height: 48px;
+            }
+            .slider-btn {
+                width: 30px;
+                height: 30px;
             }
         }
 
@@ -316,38 +452,45 @@
             box-shadow: 0 0 10px rgba(212,175,55,0.6);
         }
 
-        /* --- CORRECTIONS POUR GRANDS ÉCRANS --- */
-        @media (min-width: 1920px) {
-            h1 {
-                font-size: 5rem !important;
-                line-height: 1.1 !important;
-            }
-            .max-w-7xl {
-                max-width: 1400px !important;
-            }
-            .max-w-6xl {
-                max-width: 1200px !important;
-            }
-            .grid.lg\:grid-cols-3 {
-                grid-template-columns: 1fr 1fr 1fr !important;
-                gap: 1.5rem !important;
-            }
-            .grid.lg\:grid-cols-2 {
-                gap: 3rem !important;
-            }
-        }
+        /* ===== FIX DÉCALAGE GLOBAL ===== */
+html, body, #page {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden !important;
+}
 
-        @media (min-width: 2560px) {
-            h1 {
-                font-size: 4rem !important;
-            }
-            .max-w-7xl {
-                max-width: 1600px !important;
-            }
-            .max-w-6xl {
-                max-width: 1400px !important;
-            }
-        }
+body {
+    position: relative;
+}
+
+/* Empêche les éléments internes de forcer une largeur trop grande */
+section, nav, footer, .max-w-7xl, .max-w-6xl, .grid, .glass-card {
+    min-width: 0;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Bande logos: source fréquente du décalage */
+.logo-slider-container {
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.logo-track {
+    width: max-content !important;
+}
+
+@media (max-width: 640px) {
+    .logo-track {
+        width: max-content !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -360,11 +503,9 @@
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 border-b border-white/5 bg-black/40 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-[#d4af37] rounded-lg flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.3)]">
-                    <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"/></svg>
-                </div>
-                <span class="text-xl font-bold tracking-tighter uppercase font-display italic">AutoLux</span>
+            <div class="brand-logo">
+                <!-- Remplace src par ton image -->
+                <img src="https://i.ibb.co/bMhhScdQ/RB-Location.png" alt="Logo AutoLux Premium" class="footer-logo-img">
             </div>
             
             <div class="hidden md:flex items-center gap-8 text-[11px] font-bold tracking-widest">
@@ -398,7 +539,7 @@
             </div>
             <div class="relative reveal delay-200">
                 <div class="glass-card p-4 rounded-[40px] rotate-3 overflow-hidden shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800" alt="Luxury Car" class="rounded-[30px] w-full object-cover">
+                    <img src="https://i.ibb.co/rRZtp3GS/Whats-App-Image-2026-03-14-at-17-25-02.jpg" alt="Luxury Car" class="rounded-[30px] w-full object-cover">
                 </div>
                 <div class="absolute -bottom-6 -left-6 glass-card p-6 rounded-2xl animate-bounce">
                     <p class="text-[#d4af37] font-bold text-2xl">24h/7</p>
@@ -527,6 +668,8 @@
                 <!-- FILTRES DE CATÉGORIES -->
                 <div class="flex flex-wrap justify-center gap-4 mb-8">
                     <button onclick="filterCars('all')" class="filter-btn active px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">TOUS</button>
+                    <button onclick="filterCars('citadine')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">CITADINE</button>
+                    <button onclick="filterCars('compacte')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">COMPACTE</button>
                     <button onclick="filterCars('berline')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">BERLINES</button>
                     <button onclick="filterCars('suv')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">SUV</button>
                     <button onclick="filterCars('sport')" class="filter-btn px-6 py-2 rounded-full border border-white/10 text-[10px] font-bold tracking-widest transition-all">SPORTIVES</button>
@@ -738,7 +881,10 @@
 
     <!-- Footer -->
     <footer class="py-12 border-t border-white/5 text-center px-6">
-        <div class="text-xl font-display font-bold mb-4 italic uppercase tracking-tighter">AutoLux <span class="text-[#d4af37]">Premium</span></div>
+        <div class="flex justify-center mb-4">
+            <!-- Remplace src par ton image -->
+            <img src="https://i.ibb.co/bMhhScdQ/RB-Location.png" alt="Logo AutoLux Premium" class="footer-logo-img">
+        </div>
         <p class="text-gray-500 text-[10px] mb-6 uppercase tracking-widest font-medium">75 Avenue des Champs-Élysées, Paris | 01 Rue Didouche Mourad, Alger</p>
         <div class="flex justify-center gap-8 mb-10 text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">
             <a href="#" class="hover:text-[#d4af37] transition">Instagram</a>
@@ -752,19 +898,264 @@
 
     <script>
         const cars = [
-            { name: "Mercedes Classe E", category: "berline", price: 45000, ch: 245, img: "https://i.ibb.co/XnT6MWS/S7-modele-mercedes-classe-e-6.jpg" },
-            { name: "BMW X7 M-Package", category: "suv", price: 65000, ch: 340, img: "https://i.ibb.co/zWfczR6J/23-Bmw-X740d5dr-Gra-FR1-800.jpg" },
-            { name: "Porsche 911 Carrera", category: "sport", price: 450000, ch: 450, img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800" },
-            { name: "Range Rover Vogue", category: "suv", price: 50000, ch: 300, img: "https://i.ibb.co/FqXDM5q7/images-3.jpg" },
-            { name: "Audi A8 L", category: "prestige", price: 55000, ch: 286, img: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?auto=format&fit=crop&q=80&w=800" },
-            { name: "Lamborghini Urus", category: "prestige", price: 400000, ch: 650, img: "https://i.ibb.co/Z0dNytZ/1-Lamborghini-Urus-SE-review-2024.webp" },
-            { name: "Ferrari Roma", category: "sport", price: 600000, ch: 620, img: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&q=80&w=800" },
-            { name: "Mercedes G63", category: "prestige", price: 180000, ch: 585, img: "https://i.ibb.co/GfXx1FQ0/Whats-App-Image-2024-01-13-at-10-36-18-PM.jpg" }
+            { 
+                name: "Porsche Macan", 
+                category: "sportive", 
+                price: 55000, 
+                ch: 265, 
+                imgs: [
+                    "https://i.ibb.co/TBNH6jn4/Whats-App-Image-2026-03-14-at-17-24-25.jpg",
+                    "https://i.ibb.co/W4B4rS38/Whats-App-Image-2026-03-14-at-17-24-31.jpg",
+                    "https://i.ibb.co/5xvmt4Gw/Whats-App-Image-2026-03-14-at-17-24-36.jpg"
+                ] 
+            },
+            { 
+                name: "BMW X4 X-Drive 20 D", 
+                category: "suv", 
+                price: 50000, 
+                ch: 190, 
+                imgs: [
+                    "https://i.ibb.co/Ld2TpngL/Whats-App-Image-2026-03-14-at-17-25-02-1.jpg",
+                    "https://i.ibb.co/jvsd7cgz/Whats-App-Image-2026-03-14-at-17-25-07.jpg"
+                ] 
+            },
+            { 
+                name: "New Audi A3", 
+                category: "prestige", 
+                price: 30000, 
+                ch: 160, 
+                imgs: [
+                    "https://i.ibb.co/9kSsc7Sk/Whats-App-Image-2026-03-14-at-17-21-20.jpg",
+                    "https://i.ibb.co/HTsF3PBv/Whats-App-Image-2026-03-14-at-17-21-44.jpg"
+                ] 
+            },
+            { 
+                name: "Volkswagen T-Roc Bleu", 
+                category: "suv", 
+                price: 25000, 
+                ch: 150, 
+                imgs: [
+                    "https://i.ibb.co/5hZMkR7m/Whats-App-Image-2026-03-14-at-17-22-45.jpg",
+                    "https://i.ibb.co/JZNSFQr/Whats-App-Image-2026-03-14-at-17-23-03.jpg",
+                    "https://i.ibb.co/JFHY70TW/Whats-App-Image-2026-03-14-at-17-22-56.jpg"
+                ] 
+            },
+            { 
+                name: "BMW 420d", 
+                category: "prestige", 
+                price: 50000, 
+                ch: 190, 
+                imgs: [
+                    "https://i.ibb.co/gbwFvmZv/IMG-20260314-WA0077.jpg",
+                    "https://i.ibb.co/LXFxNy5B/IMG-20260314-WA0078.jpg"
+                ] 
+            },
+            { 
+                name: "Audi A6 40 TDI", 
+                category: "berline", 
+                price: 50000, 
+                ch: 204, 
+                imgs: [
+                    "https://i.ibb.co/rqLFzn9/IMG-20260314-WA0085.jpg",
+                    "https://i.ibb.co/krjh1XN/IMG-20260314-WA0084.jpg"
+                ] 
+            },
+            { 
+                name: "Audi A3 Kit RS3", 
+                category: "prestige", 
+                price: 30000, 
+                ch: 200, 
+                imgs: [
+                    "https://i.ibb.co/twp4ChFH/Whats-App-Image-2026-03-14-at-17-39-13-1.jpg",
+                    "https://i.ibb.co/kVsWjdgM/Whats-App-Image-2026-03-14-at-17-39-13.jpg"
+                ] 
+            },
+            { 
+                name: "New Volkswagen T-Roc Gris Nardo", 
+                category: "suv", 
+                price: 30000, 
+                ch: 150, 
+                imgs: [
+                    "https://i.ibb.co/nNTzHT7H/Whats-App-Image-2026-03-14-at-17-22-10.jpg",
+                    "https://i.ibb.co/7trctMtZ/Whats-App-Image-2026-03-14-at-17-22-02.jpg"
+                ] 
+            },
+            { 
+                name: "Cupra Formantor", 
+                category: "spotrive", 
+                price: 35000, 
+                ch: 150, 
+                imgs: [
+                    "https://i.ibb.co/SwBbzDXx/Whats-App-Image-2026-03-14-at-17-23-13.jpg",
+                    "https://i.ibb.co/vC8VD993/Whats-App-Image-2026-03-14-at-17-23-19.jpg",
+                    "https://i.ibb.co/jvCg8hcZ/Whats-App-Image-2026-03-14-at-17-23-25.jpg"
+                ] 
+            },
+            { 
+                name: "New Volkswagen T-Roc Noir", 
+                category: "suv", 
+                price: 30000, 
+                ch: 200, 
+                imgs: [
+                    "https://i.ibb.co/VY4bcdxn/Whats-App-Image-2026-03-14-at-17-23-40.jpg",
+                    "https://i.ibb.co/TD4L6dKv/Whats-App-Image-2026-03-14-at-17-23-49.jpg"
+                ] 
+            },
+            { 
+                name: "New Volkswagen T-Cross", 
+                category: "suv", 
+                price: 30000, 
+                ch: 130, 
+                imgs: [
+                    "https://i.ibb.co/chCBVQmg/Whats-App-Image-2026-03-14-at-17-24-02.jpg",
+                    "https://i.ibb.co/wrrVQBnm/Whats-App-Image-2026-03-14-at-17-24-09.jpg"
+                ] 
+            },
+            { 
+                name: "Audi A1", 
+                category: "compacte", 
+                price: 25000, 
+                ch: 90, 
+                imgs: [
+                    "https://i.ibb.co/CsDq4ZW1/Whats-App-Image-2026-03-14-at-17-28-24.jpg",
+                    "https://i.ibb.co/x8h0nq4M/Whats-App-Image-2026-03-14-at-17-28-24-1.jpg"
+                ] 
+            },
+            { 
+                name: "Volkswagen Tiguan R-LINE", 
+                category: "suv", 
+                price: 35000, 
+                ch: 200, 
+                imgs: [
+                    "https://i.ibb.co/Rk48P2z9/Whats-App-Image-2026-03-14-at-17-29-49-1.jpg",
+                    "https://i.ibb.co/Rk48P2z9/Whats-App-Image-2026-03-14-at-17-29-49-1.jpg"
+                ] 
+            },
+            { 
+                name: "Mini Cooper", 
+                category: "sportive", 
+                price: 28000, 
+                ch: 130, 
+                imgs: [
+                    "https://i.ibb.co/wrWm4Zd4/Whats-App-Image-2026-03-14-at-17-30-01.jpg"
+                ] 
+            },
+            { 
+                name: "Audi A1", 
+                category: "compacte", 
+                price: 25000, 
+                ch: 90, 
+                imgs: [
+                    "https://i.ibb.co/CsDq4ZW1/Whats-App-Image-2026-03-14-at-17-28-24.jpg",
+                    "https://i.ibb.co/x8h0nq4M/Whats-App-Image-2026-03-14-at-17-28-24-1.jpg"
+                ] 
+            },
         ];
 
         let selectedCars = [];
         let currentCategory = 'all';
         let searchQuery = '';
+
+        function safeId(str) {
+            return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-');
+        }
+
+        function getCarImages(car) {
+            if (!Array.isArray(car.imgs)) return [];
+            return car.imgs.filter(src => typeof src === 'string' && src.trim() !== '');
+        }
+
+        function slideCar(sliderId, direction) {
+            const slider = document.getElementById(sliderId);
+            if (!slider) return;
+
+            const total = slider.children.length;
+            if (total <= 1) return;
+
+            const width = slider.clientWidth || 1;
+            const currentIndex = Math.round(slider.scrollLeft / width);
+            const nextIndex = Math.max(0, Math.min(total - 1, currentIndex + direction));
+
+            slider.scrollTo({ left: nextIndex * width, behavior: 'smooth' });
+        }
+
+        function slideTo(sliderId, index) {
+            const slider = document.getElementById(sliderId);
+            if (!slider) return;
+
+            const total = slider.children.length;
+            if (total === 0) return;
+
+            const width = slider.clientWidth || 1;
+            const safeIndex = Math.max(0, Math.min(total - 1, index));
+            slider.scrollTo({ left: width * safeIndex, behavior: 'smooth' });
+        }
+
+        function updateSliderDots(sliderId) {
+            const slider = document.getElementById(sliderId);
+            if (!slider) return;
+
+            const dots = document.querySelectorAll(`.slider-dot[data-slider="${sliderId}"]`);
+            if (!dots.length) return;
+
+            const width = slider.clientWidth || 1;
+            const rawIndex = Math.round(slider.scrollLeft / width);
+            const index = Math.max(0, Math.min(dots.length - 1, rawIndex));
+
+            dots.forEach(dot => {
+                dot.classList.toggle('active', Number(dot.dataset.index) === index);
+            });
+        }
+
+        function enableDragSwipe(slider) {
+            let isDown = false;
+            let startX = 0;
+            let startScroll = 0;
+            let pointerId = null;
+
+            slider.addEventListener('pointerdown', (e) => {
+                if (slider.children.length <= 1) return;
+                isDown = true;
+                pointerId = e.pointerId;
+                startX = e.clientX;
+                startScroll = slider.scrollLeft;
+                slider.classList.add('dragging');
+                slider.setPointerCapture(pointerId);
+            });
+
+            slider.addEventListener('pointermove', (e) => {
+                if (!isDown) return;
+                const dx = e.clientX - startX;
+                slider.scrollLeft = startScroll - dx;
+            });
+
+            const endDrag = () => {
+                if (!isDown) return;
+                isDown = false;
+                slider.classList.remove('dragging');
+
+                const width = slider.clientWidth || 1;
+                const maxIndex = Math.max(0, slider.children.length - 1);
+                const index = Math.max(0, Math.min(maxIndex, Math.round(slider.scrollLeft / width)));
+
+                slider.scrollTo({ left: index * width, behavior: 'smooth' });
+            };
+
+            slider.addEventListener('pointerup', endDrag);
+            slider.addEventListener('pointercancel', endDrag);
+            slider.addEventListener('lostpointercapture', endDrag);
+        }
+
+        function initCarSliders() {
+            document.querySelectorAll('.car-slider').forEach(slider => {
+                if (slider.dataset.inited === '1') return;
+                slider.dataset.inited = '1';
+
+                slider.addEventListener('scroll', () => updateSliderDots(slider.id), { passive: true });
+                enableDragSwipe(slider);
+                updateSliderDots(slider.id);
+            });
+        }
 
         function renderCars() {
             const grid = document.getElementById('cars-grid');
@@ -782,12 +1173,41 @@
                 noResults.classList.remove('hidden');
             } else {
                 noResults.classList.add('hidden');
-                filtered.forEach(car => {
+
+                filtered.forEach((car, index) => {
+                    const sliderId = `slider-${safeId(car.name)}-${index}`;
+
+                    const imgs = getCarImages(car);
+                    const finalImgs = imgs.length ? imgs : ["https://placehold.co/900x1200/111111/ffffff?text=Photo+indisponible"];
+
+                    const slidesHtml = finalImgs.map((img, imgIndex) => `
+                        <img src="${img}" alt="${car.name} photo ${imgIndex + 1}" class="car-image car-slide w-full h-full object-cover" loading="lazy">
+                    `).join('');
+
+                    const dotsHtml = finalImgs.length > 1
+                        ? finalImgs.map((_, imgIndex) => `
+                            <button type="button" class="slider-dot ${imgIndex === 0 ? 'active' : ''}" data-slider="${sliderId}" data-index="${imgIndex}" onclick="slideTo('${sliderId}', ${imgIndex})" aria-label="Voir photo ${imgIndex + 1}"></button>
+                        `).join('')
+                        : '';
+
+                    const navHtml = finalImgs.length > 1
+                        ? `
+                            <button type="button" onclick="slideCar('${sliderId}', -1)" class="slider-btn left-3" aria-label="Photo précédente">‹</button>
+                            <button type="button" onclick="slideCar('${sliderId}', 1)" class="slider-btn right-3" aria-label="Photo suivante">›</button>
+                        `
+                        : '';
+
                     grid.innerHTML += `
                         <div class="glass-card p-6 reveal active car-card flex flex-col">
-                            <div class="overflow-hidden rounded-2xl mb-6 aspect-video">
-                                <img src="${car.img}" class="car-image w-full h-full object-cover">
+                            <div class="relative overflow-hidden rounded-2xl mb-6 aspect-[3/4]">
+                                <div id="${sliderId}" class="car-slider h-full">
+                                    ${slidesHtml}
+                                </div>
+
+                                ${navHtml}
+                                ${dotsHtml ? `<div class="slider-dots">${dotsHtml}</div>` : ''}
                             </div>
+
                             <div class="flex justify-between items-start mb-4">
                                 <div>
                                     <h3 class="text-lg font-bold font-display uppercase tracking-tight italic">${car.name}</h3>
@@ -808,6 +1228,8 @@
                     `;
                 });
             }
+
+            initCarSliders();
             refreshReveal();
         }
 
@@ -938,6 +1360,10 @@
             else nav.classList.remove('py-2');
         });
 
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.car-slider').forEach(slider => updateSliderDots(slider.id));
+        });
+
         // Initialisation
         renderCars();
         populateSelector();
@@ -946,6 +1372,7 @@
         const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
         document.getElementById('start-date').value = today;
         document.getElementById('end-date').value = tomorrow;
+        updateOrderUI();
     </script>
 
 </div>
